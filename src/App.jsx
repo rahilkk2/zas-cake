@@ -112,6 +112,43 @@ function Hero() {
   );
 }
 
+/* ─── ABOUT US ─── */
+function About() {
+  return (
+    <section className="about" id="about">
+      <div className="container">
+        <div className="about-inner">
+          <div className="about-img-wrap">
+            <img src="/instagram/img shop1.jpeg" alt="ZAS! Cake Shop" className="about-img" />
+            <div className="about-experience">
+              <span className="exp-num">100%</span>
+              <span className="exp-text">Veg & Eggless</span>
+            </div>
+          </div>
+          <div className="about-text">
+            <div className="section-title-wrap" style={{textAlign: 'left', margin: '0 0 24px 0', maxWidth: '100%'}}>
+              <h2 className="section-title" style={{margin: 0}}>Our Story</h2>
+            </div>
+            <h3 className="about-heading">Baking Happiness With Every <span className="pink">Masterpiece</span></h3>
+            <p className="about-desc">
+              Welcome to <strong>ZAS! Cake</strong>, your ultimate destination for premium, handcrafted cakes and pastries in Mumbra. We believe that every celebration deserves a touch of sweetness and elegance.
+            </p>
+            <p className="about-desc">
+              Our expert bakers use only the finest ingredients to craft strictly eggless delights that not only look spectacular but taste divine. From intimate birthdays to grand anniversaries, our cakes are baked fresh daily, ensuring uncompromising quality and hygiene.
+            </p>
+            <ul className="about-list">
+              <li><Heart size={16} className="pink" /> Handcrafted with passion and care</li>
+              <li><Leaf size={16} className="pink" /> 100% strictly eggless kitchen</li>
+              <li><Sparkles size={16} className="pink" /> Premium, fresh, and high-quality ingredients</li>
+            </ul>
+            <a href="#cakes" className="btn btn-primary" style={{marginTop: 32}}>Taste The Magic</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 /* ─── OFFERS ─── */
 function Offers() {
   return (
@@ -381,6 +418,7 @@ function App() {
       <DeliveryBadge />
       <main>
         <Hero />
+        <About />
         <Offers />
         <Bestsellers />
         <Features />
