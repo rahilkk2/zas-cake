@@ -117,41 +117,48 @@ function Offers() {
   return (
     <section className="offers" id="offers">
       <div className="container">
-        <h2 className="section-title">OUR EXCLUSIVE OFFERS</h2>
-        <div className="offers-grid">
-          <div className="offer-card">
+        <div className="section-title-wrap">
+          <h2 className="section-title">OUR EXCLUSIVE OFFERS</h2>
+        </div>
+        <div className="offers-grid-wide">
+          
+          <div className="offer-card-wide">
             <div className="offer-content">
-              <div className="offer-badge"><Calendar size={12} /> EVERY MONTH</div>
+              <div className="offer-top-text"><span className="pink">EVERY</span> MONTH</div>
               <div className="date-circles">
                 <span className="date-circle">5</span>
                 <span className="date-circle">15</span>
                 <span className="date-circle">25</span>
               </div>
               <p className="offer-sub">Any Half Kg Cake</p>
-              <div className="offer-price">₹220 <span>Only</span></div>
-              <a href="https://wa.me/917738443411" className="btn btn-outline btn-sm" style={{marginTop:14}}>Order Now</a>
+              <div className="offer-price">₹220 <span className="dark-text">Only</span></div>
+              <a href="https://wa.me/917738443411" className="btn btn-outline btn-sm">Order Now</a>
             </div>
-            <img src="/products/cake 1.jpeg" alt="Monthly Offer" className="offer-img" />
+            <div className="offer-img-wrap"><img src="/products/cake 1.jpeg" alt="Monthly Offer" /></div>
           </div>
-          <div className="offer-card">
+
+          <div className="offer-card-wide">
             <div className="offer-content">
-              <div className="offer-badge"><Clock size={12} /> AFTER 11 PM</div>
+              <div className="offer-top-text">AFTER 11 PM</div>
               <h3 className="offer-title-lg">Happy<br/>Hours</h3>
               <p className="offer-sub">Any Display Cake</p>
               <div className="offer-highlight">15% OFF</div>
-              <a href="https://wa.me/917738443411" className="btn btn-primary btn-sm" style={{marginTop:14}}>Order Now</a>
+              <a href="https://wa.me/917738443411" className="btn btn-primary btn-sm">Order Now</a>
             </div>
-            <img src="/products/cake 2.jpeg" alt="Happy Hours" className="offer-img" />
+            <div className="offer-img-wrap"><img src="/products/cake 2.jpeg" alt="Happy Hours" /></div>
           </div>
-          <div className="offer-card">
+
+          <div className="offer-card-wide">
             <div className="offer-content">
-              <div className="offer-badge"><Gift size={12} /> EVERYDAY ALWAYS</div>
-              <h4 style={{fontSize:16,marginBottom:8}}>Buy 2 Pastries</h4>
+              <div className="offer-top-text">EVERYDAY ALWAYS</div>
+              <div className="crown-icon">♔</div>
+              <p className="offer-sub" style={{marginBottom:0,fontSize:14}}>Buy 2 Pastries</p>
               <div className="offer-highlight">GET 1 FREE</div>
-              <a href="https://wa.me/917738443411" className="btn btn-primary btn-sm" style={{marginTop:14}}>Explore Pastries</a>
+              <a href="https://wa.me/917738443411" className="btn btn-primary btn-sm" style={{marginTop:8}}>Explore Pastries</a>
             </div>
-            <img src="/products/pastry 1.jpeg" alt="Pastry Offer" className="offer-img" />
+            <div className="offer-img-wrap"><img src="/products/pastry 1.jpeg" alt="Pastry Offer" /></div>
           </div>
+
         </div>
       </div>
     </section>
