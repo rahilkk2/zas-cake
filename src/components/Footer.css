@@ -1,0 +1,157 @@
+.footer {
+  background: linear-gradient(to top, var(--color-primary-light) 0%, var(--color-bg) 100%);
+  padding-top: 80px;
+  position: relative;
+  border-top: 1px solid var(--glass-border);
+}
+
+.footer-top {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 40px;
+  padding-bottom: 50px;
+  border-bottom: 1px solid rgba(216, 27, 96, 0.1);
+}
+
+.footer-brand {
+  flex: 1;
+  min-width: 250px;
+  max-width: 300px;
+}
+
+.footer-logo {
+  height: 80px;
+  margin-bottom: 20px;
+}
+
+.footer-desc {
+  color: var(--color-text-light);
+  font-size: 14px;
+  margin-bottom: 24px;
+  line-height: 1.8;
+}
+
+.social-links {
+  display: flex;
+  gap: 15px;
+}
+
+.social-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--color-white);
+  color: var(--color-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  box-shadow: var(--shadow-card);
+}
+
+.social-icon:hover {
+  background: var(--color-primary);
+  color: var(--color-white);
+  transform: translateY(-3px);
+}
+
+.footer-links-group {
+  flex: 1;
+  min-width: 150px;
+}
+
+.footer-title {
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color-text-dark);
+  margin-bottom: 25px;
+  letter-spacing: 1px;
+}
+
+.footer-links {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.footer-links a {
+  color: var(--color-text-light);
+  font-size: 14px;
+  transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+  color: var(--color-primary);
+}
+
+.footer-contact {
+  flex: 1.5;
+  min-width: 250px;
+}
+
+.contact-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.contact-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  color: var(--color-text-light);
+  font-size: 14px;
+}
+
+.contact-icon {
+  color: var(--color-primary);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.whatsapp-btn {
+  display: inline-flex;
+  align-items: center;
+  background: linear-gradient(135deg, #25D366, #128C7E);
+  box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+}
+
+.whatsapp-btn:hover {
+  background: linear-gradient(135deg, #128C7E, #075E54);
+  box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+}
+
+.footer-hours {
+  flex: 1;
+  min-width: 200px;
+}
+
+.footer-hours p {
+  color: var(--color-text-light);
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.footer-signature {
+  font-size: 32px;
+  line-height: 1.2;
+}
+
+.footer-bottom {
+  padding: 24px 0;
+  text-align: center;
+}
+
+.footer-bottom p {
+  color: var(--color-text-light);
+  font-size: 14px;
+}
+
+@media (max-width: 768px) {
+  .footer-top {
+    flex-direction: column;
+    gap: 30px;
+  }
+}

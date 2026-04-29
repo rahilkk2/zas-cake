@@ -1,0 +1,180 @@
+.offers {
+  background-color: var(--color-white);
+}
+
+.offers-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+
+.offer-card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 30px;
+  overflow: hidden;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  transform-style: preserve-3d;
+  perspective: 1000px;
+  cursor: pointer;
+}
+
+.offer-card:hover {
+  transform: translateY(-10px) rotateX(2deg) rotateY(2deg);
+  box-shadow: 0 20px 40px rgba(216, 27, 96, 0.15);
+}
+
+.glow-border {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  border: 2px solid transparent;
+  transition: border-color 0.4s ease;
+  pointer-events: none;
+}
+
+.offer-card:hover .glow-border {
+  border-color: var(--color-primary-light);
+  box-shadow: inset 0 0 20px rgba(216, 27, 96, 0.1);
+}
+
+.offer-content {
+  flex: 1;
+  position: relative;
+  z-index: 2;
+  padding-right: 20px;
+}
+
+.offer-badge {
+  display: inline-flex;
+  align-items: center;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: var(--color-text-light);
+  margin-bottom: 12px;
+  background: var(--color-bg);
+  padding: 4px 10px;
+  border-radius: 20px;
+  border: 1px solid var(--color-primary-light);
+}
+
+.dhamaka-dates {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.date-circle {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--color-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  color: var(--color-primary);
+  font-family: var(--font-heading);
+}
+
+.offer-title {
+  font-size: 16px;
+  color: var(--color-text-light);
+  margin-bottom: 5px;
+}
+
+.offer-price {
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--color-primary);
+  font-family: var(--font-heading);
+  line-height: 1.1;
+}
+
+.offer-price span {
+  font-size: 16px;
+  color: var(--color-text-light);
+  font-family: var(--font-body);
+  font-weight: 400;
+}
+
+.offer-title-large {
+  font-size: 36px;
+  line-height: 1.1;
+  margin-bottom: 10px;
+}
+
+.offer-desc {
+  font-size: 14px;
+  color: var(--color-text-light);
+  margin-bottom: 5px;
+}
+
+.offer-highlight {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--color-primary);
+  font-family: var(--font-heading);
+}
+
+.offer-title-med {
+  font-size: 18px;
+  color: var(--color-text-dark);
+  margin-bottom: 10px;
+}
+
+.offer-huge {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--color-primary);
+  font-family: var(--font-heading);
+}
+
+.offer-image-container {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  overflow: hidden;
+  position: relative;
+  z-index: 2;
+  box-shadow: var(--shadow-card);
+}
+
+.offer-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.offer-card:hover .offer-image {
+  transform: scale(1.1) rotate(5deg);
+}
+
+.btn-sm {
+  padding: 8px 20px;
+  font-size: 14px;
+}
+
+@media (max-width: 1024px) {
+  .offers-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .offers-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .offer-card {
+    max-width: 400px;
+    margin: 0 auto;
+  }
+}

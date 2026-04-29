@@ -1,0 +1,72 @@
+import { Phone, Mail, MapPin, MessageCircle } from 'lucide-react';
+import { FaInstagram as Instagram, FaFacebook as Facebook } from 'react-icons/fa';
+import './Footer.css';
+
+const Footer = () => {
+  return (
+    <footer className="footer" id="contact">
+      <div className="container">
+        <div className="footer-top">
+          <div className="footer-brand">
+            <img src="/logo.png" alt="Zas Cake Logo" className="footer-logo" />
+            <p className="footer-desc">
+              Your celebrations, our passion.<br />
+              We bake happiness in every bite.
+            </p>
+            <div className="social-links">
+              <a href="#" className="social-icon"><Instagram size={20} /></a>
+              <a href="#" className="social-icon"><Facebook size={20} /></a>
+              <a href="https://wa.me/917738443411" target="_blank" rel="noreferrer" className="social-icon"><MessageCircle size={20} /></a>
+            </div>
+          </div>
+          
+          <div className="footer-links-group">
+            <h4 className="footer-title">QUICK LINKS</h4>
+            <ul className="footer-links">
+              <li><a href="#home">Home</a></li>
+              <li><a href="#cakes">Cakes</a></li>
+              <li><a href="#offers">Offers</a></li>
+              <li><a href="#gallery">Gallery</a></li>
+              <li><a href="#about">About Us</a></li>
+            </ul>
+          </div>
+          
+          <div className="footer-contact">
+            <h4 className="footer-title">CONTACT US</h4>
+            <ul className="contact-list">
+              <li>
+                <Phone size={18} className="contact-icon" />
+                <span>7738443411</span>
+              </li>
+              <li>
+                <Mail size={18} className="contact-icon" />
+                <span>zascake8@gmail.com</span>
+              </li>
+              <li>
+                <MapPin size={18} className="contact-icon" />
+                <span>Shop No. 1, (Your Area), Mumbai - 400XXX</span>
+              </li>
+            </ul>
+            <a href="https://wa.me/917738443411" target="_blank" rel="noreferrer" className="btn btn-primary btn-sm mt-4 whatsapp-btn">
+              <MessageCircle size={18} className="mr-2" /> Order on WhatsApp
+            </a>
+          </div>
+          
+          <div className="footer-hours">
+            <h4 className="footer-title">OPENING HOURS</h4>
+            <p>Monday - Sunday</p>
+            <p>11:00 AM - 11:30 PM</p>
+            
+            <h3 className="footer-signature text-pink-italic mt-4">Baked <br/>with Love ❤</h3>
+          </div>
+        </div>
+        
+        <div className="footer-bottom">
+          <p>&copy; {new Date().getFullYear()} Zas Cake. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+  );
+};
+
+export default Footer;
