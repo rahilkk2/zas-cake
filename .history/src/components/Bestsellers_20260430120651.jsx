@@ -50,7 +50,7 @@ const Bestsellers = () => {
                   </div>
                   <div className="product-info">
                     <h4 className="product-name">{product.name}</h4>
-                    {product.price && <p className="product-price">₹{product.price}</p>}
+                    <p className="product-price">₹{product.price}</p>
                     <button className="btn btn-primary btn-sm product-btn">Order Now</button>
                   </div>
                 </div>

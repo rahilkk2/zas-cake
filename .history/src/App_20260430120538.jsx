@@ -1,17 +1,10 @@
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import { 
-  Phone, Clock, MapPin, 
+  Phone, Mail, Clock, MapPin, 
   ShoppingBag, Menu, X, Heart, Calendar, Gift, 
-  Sparkles, Shield, Truck, MessageCircle, Star, Leaf
+  Sparkles, Leaf, Shield, Truck, Camera, MessageCircle, Star
 } from 'lucide-react';
-import { FaWhatsapp } from 'react-icons/fa';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import Gallery from './components/Gallery';
-import CustomCursor from './components/CustomCursor';
-import PageLoader from './components/PageLoader';
-
-gsap.registerPlugin(ScrollTrigger);
+import { FaInstagram, FaFacebookF, FaWhatsapp } from 'react-icons/fa';
 
 /* ─── TOP BAR ─── */
 function TopBar() {
@@ -80,64 +73,14 @@ function Navbar() {
 
 /* ─── HERO ─── */
 function Hero() {
-  const heroRef = useRef(null);
-  const glowRef = useRef(null);
-  const cakeRef = useRef(null);
-
-  useEffect(() => {
-    const hero = heroRef.current;
-    if (!hero) return;
-
-    // Mouse-follow glow
-    const onMove = (e) => {
-      if (!glowRef.current) return;
-      const rect = hero.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      glowRef.current.style.background = `radial-gradient(600px circle at ${x}px ${y}px, rgba(216,27,96,0.07), transparent 60%)`;
-    };
-    hero.addEventListener('mousemove', onMove);
-
-    // Parallax cake on scroll
-    gsap.to('.hero-cake-frame', {
-      y: -40,
-      ease: 'none',
-      scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: 1.5 }
-    });
-
-    // Text reveal — gentle fade-in, elements start visible as fallback
-    const tl = gsap.timeline({ delay: 1.8 });
-    tl.fromTo('.hero-tagline', { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' })
-      .fromTo('.hero-heading', { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '-=0.3')
-      .fromTo('.hero-divider', { opacity: 0, scaleX: 0 }, { opacity: 1, scaleX: 1, duration: 0.5, ease: 'power2.out' }, '-=0.2')
-      .fromTo('.hero-desc', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }, '-=0.2')
-      .fromTo('.hero-btns', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }, '-=0.2')
-      .fromTo('.hero-cake-frame', { opacity: 0, scale: 0.85 }, { opacity: 1, scale: 1, duration: 1, ease: 'power3.out' }, '-=0.8')
-      .fromTo('.hero-logo-badge', { opacity: 0, scale: 0 }, { opacity: 1, scale: 1, duration: 0.5, ease: 'back.out(1.7)' }, '-=0.4');
-
-    return () => hero.removeEventListener('mousemove', onMove);
-  }, []);
-
-  // More petals for luxury feel (slow floating)
-  const petals = Array.from({ length: 12 }, (_, i) => ({
-    top: `${Math.random() * 90}%`,
-    left: `${Math.random() * 100}%`,
-    bg: ['#fce4ec', '#f8bbd0', '#f48fb1', '#fce4ec'][i % 4],
-    size: 8 + Math.random() * 12,
-    delay: Math.random() * 6,
-    dur: 10 + Math.random() * 8,
-  }));
-
   return (
-    <section className="hero" id="home" ref={heroRef}>
-      <div ref={glowRef} className="hero-mouse-glow" />
-      {petals.map((p, i) => (
+    <section className="hero" id="home">
+      {[...Array(5)].map((_, i) => (
         <div key={i} className="petal" style={{
-          top: p.top, left: p.left,
-          background: p.bg,
-          width: `${p.size}px`, height: `${p.size}px`,
-          animationDelay: `${p.delay}s`, animationDuration: `${p.dur}s`,
-          opacity: 0.35,
+          top: `${15 + i * 14}%`, left: `${5 + i * 18}%`,
+          background: i % 2 === 0 ? '#fce4ec' : '#f8bbd0',
+          width: `${14 + i * 3}px`, height: `${14 + i * 3}px`,
+          animationDelay: `${i * 0.8}s`, animationDuration: `${5 + i * 1.5}s`,
         }} />
       ))}
       <div className="container hero-inner">
@@ -153,7 +96,7 @@ function Hero() {
         </div>
         <div className="hero-img-wrap">
           <div className="hero-glow"></div>
-          <div className="hero-cake-frame" ref={cakeRef}>
+          <div className="hero-cake-frame">
             <img src="/products/cake 12.jpeg" alt="Premium Cake" className="hero-cake" />
           </div>
           <div className="hero-logo-badge">
@@ -187,11 +130,11 @@ function About() {
               Welcome to <strong>ZAS! Cake</strong>, your ultimate destination for premium, handcrafted cakes and pastries in Mumbra. We believe that every celebration deserves a touch of sweetness and elegance.
             </p>
             <p className="about-desc">
-              Our expert bakers use only the finest ingredients to craft delicious cakes that not only look spectacular but taste divine. From intimate birthdays to grand anniversaries, our cakes are baked fresh daily, ensuring uncompromising quality and hygiene.
+              Our expert bakers use only the finest ingredients to craft strictly eggless delights that not only look spectacular but taste divine. From intimate birthdays to grand anniversaries, our cakes are baked fresh daily, ensuring uncompromising quality and hygiene.
             </p>
             <ul className="about-list">
               <li><Heart size={16} className="pink" /> Handcrafted with passion and care</li>
-              <li><Leaf size={16} className="pink" /> 1/2 kg cakes start from ₹300 | 1/4 kg from ₹150 | Pastries from ₹50</li>
+              <li><Leaf size={16} className="pink" /> 100% strictly eggless kitchen</li>
               <li><Sparkles size={16} className="pink" /> Premium, fresh, and high-quality ingredients</li>
             </ul>
             <a href="#cakes" className="btn btn-primary" style={{marginTop: 32}}>Taste The Magic</a>
@@ -256,59 +199,29 @@ function Offers() {
 }
 
 /* ─── BESTSELLERS ─── */
-function ProductCard({ p }) {
-  const cardRef = useRef(null);
-  const handleMove = (e) => {
-    const card = cardRef.current;
-    if (!card) return;
-    const rect = card.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
-    const rotateX = (y - centerY) / centerY * -8;
-    const rotateY = (x - centerX) / centerX * 8;
-    card.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-8px)`;
-  };
-  const handleLeave = () => {
-    if (cardRef.current) cardRef.current.style.transform = '';
-  };
-  return (
-    <div className="product-card" ref={cardRef} onMouseMove={handleMove} onMouseLeave={handleLeave}>
-      <div className="product-img-wrap"><img src={p.img} alt={p.name} loading="lazy" /></div>
-      <div className="product-name">{p.name}</div>
-      {p.price && <div className="product-price">₹{p.price}</div>}
-      <a href="https://wa.me/917738443411" className="btn btn-primary btn-sm">Order Now</a>
-    </div>
-  );
-}
-
 function Bestsellers() {
   const products = [
-    { name: 'Made With Love Cake', price: null, img: '/products/cake 3.jpeg' },
-    { name: 'Sweet Celebration Cake', price: null, img: '/products/cake 4.jpeg' },
-    { name: 'Perfect Occasion Cake', price: null, img: '/products/cake 5 .jpeg' },
-    { name: 'Delight in Every Bite', price: null, img: '/products/cake 6.jpeg' },
-    { name: 'Crafted to Perfection', price: null, img: '/products/cake 7.jpeg' },
-    { name: 'A Treat to Remember', price: null, img: '/products/cake 8.jpeg' },
+    { name: 'Chocolate Truffle Cake', price: 650, img: '/products/cake 3.jpeg' },
+    { name: 'Rose Velvet Cake', price: 600, img: '/products/cake 4.jpeg' },
+    { name: 'Red Velvet Cake', price: 600, img: '/products/cake 5 .jpeg' },
+    { name: 'Ferrero Rocher Cake', price: 750, img: '/products/cake 6.jpeg' },
+    { name: 'Strawberry Bliss Cake', price: 650, img: '/products/cake 7.jpeg' },
+    { name: 'Love Delight Cake', price: 700, img: '/products/cake 8.jpeg' },
   ];
-
-  useEffect(() => {
-    gsap.fromTo('.product-card',
-      { opacity: 0, y: 60 },
-      { opacity: 1, y: 0, duration: 0.6, stagger: 0.12, ease: 'power3.out',
-        scrollTrigger: { trigger: '.bestsellers', start: 'top 85%', toggleActions: 'play none none none' }
-      }
-    );
-  }, []);
-
   return (
     <section className="bestsellers" id="cakes">
       <div className="container">
         <h2 className="section-title">Our Bestsellers</h2>
         <div className="slider-wrapper">
           <div className="products-track">
-            {products.map((p, i) => <ProductCard key={i} p={p} />)}
+            {products.map((p, i) => (
+              <div className="product-card" key={i}>
+                <div className="product-img-wrap"><img src={p.img} alt={p.name} loading="lazy" /></div>
+                <div className="product-name">{p.name}</div>
+                <div className="product-price">₹{p.price}</div>
+                <a href="https://wa.me/917738443411" className="btn btn-primary btn-sm">Order Now</a>
+              </div>
+            ))}
           </div>
         </div>
       </div>
@@ -320,6 +233,7 @@ function Bestsellers() {
 function Features() {
   const items = [
     { icon: <Sparkles size={24} />, title: 'Premium Ingredients', desc: 'Only the finest & fresh ingredients' },
+    { icon: <Leaf size={24} />, title: '100% Eggless Options', desc: 'Delicious cakes for everyone' },
     { icon: <Shield size={24} />, title: 'Hygienic & Safe Preparation', desc: 'Made with care & complete hygiene' },
     { icon: <Truck size={24} />, title: 'On-Time Delivery', desc: 'Because your time matters' },
     { icon: <Heart size={24} />, title: 'Made With Love Since Day 1', desc: 'Crafting happiness in every bite' },
@@ -352,6 +266,47 @@ function SpecialCombo() {
           <a href="https://wa.me/917738443411" target="_blank" rel="noreferrer" className="btn btn-primary pulse-glow">Claim Offer Now →</a>
         </div>
       </div>
+    </section>
+  );
+}
+
+/* ─── INSTAGRAM / GALLERY ─── */
+function InstagramGallery() {
+  const [lb, setLb] = useState(null);
+  
+  // Only using the actual shop images from the instagram folder as requested
+  const imgs = [
+    '/instagram/img shop1.jpeg',
+    '/instagram/img shop2.jpeg',
+    '/instagram/img shop 3.jpeg',
+    '/instagram/img shop 4.jpeg'
+  ];
+  
+  return (
+    <section className="insta" id="gallery">
+      <div className="container">
+        <h2 className="section-title"><Camera size={28} className="pink" /> Follow Us On Instagram</h2>
+        <div className="insta-grid-clean">
+          {imgs.map((img, i) => (
+            <div className="insta-item" key={i} onClick={() => setLb(img)}>
+              <img src={img} alt={`ZAS! Cake Shop View ${i+1}`} loading="lazy" />
+              <div className="insta-overlay"><Camera size={32} /></div>
+            </div>
+          ))}
+        </div>
+        <div className="insta-cta-full">
+          <Camera size={40} strokeWidth={1.5} className="pink" style={{marginBottom:12}} />
+          <h4>@zascake8</h4>
+          <p>Explore more behind the scenes and fresh bakes on our feed!</p>
+          <a href="https://instagram.com/zascake8" target="_blank" rel="noreferrer" className="btn btn-primary" style={{marginTop:16}}>Follow Us</a>
+        </div>
+      </div>
+      {lb && (
+        <div className="lightbox" onClick={() => setLb(null)}>
+          <button className="lightbox-close" onClick={() => setLb(null)}><X size={32} /></button>
+          <img src={lb} alt="Enlarged" onClick={e => e.stopPropagation()} />
+        </div>
+      )}
     </section>
   );
 }
@@ -390,32 +345,16 @@ function Testimonials() {
 
 /* ─── FOOTER ─── */
 function Footer() {
-  // Floating light particles
-  const particles = Array.from({ length: 15 }, (_, i) => ({
-    left: `${Math.random() * 100}%`,
-    size: 3 + Math.random() * 5,
-    delay: Math.random() * 8,
-    dur: 6 + Math.random() * 6,
-    opacity: 0.15 + Math.random() * 0.2,
-  }));
-
   return (
     <footer className="footer" id="contact">
-      <div className="footer-particles">
-        {particles.map((p, i) => (
-          <span key={i} className="footer-particle" style={{
-            left: p.left, width: p.size, height: p.size,
-            animationDelay: `${p.delay}s`, animationDuration: `${p.dur}s`,
-            opacity: p.opacity,
-          }} />
-        ))}
-      </div>
       <div className="container">
         <div className="footer-grid">
           <div className="footer-col">
             <img src="/logo.png" alt="ZAS! Cake" className="footer-logo" />
             <p className="footer-desc">Your celebrations, our passion.<br/>We bake happiness in every bite.</p>
             <div className="social-icons">
+              <a href="https://instagram.com/zascake8" target="_blank" rel="noreferrer" className="social-icon"><FaInstagram size={18} /></a>
+              <a href="#" className="social-icon"><FaFacebookF size={18} /></a>
               <a href="https://wa.me/917738443411" target="_blank" rel="noreferrer" className="social-icon"><FaWhatsapp size={18} /></a>
             </div>
           </div>
@@ -431,13 +370,14 @@ function Footer() {
           <div className="footer-col">
             <h4 className="footer-heading">CONTACT US</h4>
             <div className="contact-item"><div className="contact-icon"><Phone size={16} /></div><span>7738443411</span></div>
-            <div className="contact-item"><div className="contact-icon"><MapPin size={16} /></div><span>Shimla Park, Kausa,<br/>Mumbra, Thane,<br/>Maharashtra 400612</span></div>
+            <div className="contact-item"><div className="contact-icon"><Mail size={16} /></div><span>zascake8@gmail.com</span></div>
+            <div className="contact-item"><div className="contact-icon"><MapPin size={16} /></div><span>AL Javed Apartment, Ground Floor,<br/>Near Kausa Qabrastan,<br/>Mumbra, Thane</span></div>
             <a href="https://wa.me/917738443411" target="_blank" rel="noreferrer" className="wa-btn"><FaWhatsapp size={16} /> Order on WhatsApp</a>
           </div>
           <div className="footer-col">
             <h4 className="footer-heading">OPENING HOURS</h4>
-            <p style={{fontSize:14,color:'var(--gray)',marginBottom:4}}>Mon-Sun</p>
-            <p style={{fontSize:14,color:'var(--gray)',marginBottom:20}}>10:30 AM - 1:30 AM</p>
+            <p style={{fontSize:14,color:'var(--gray)',marginBottom:4}}>Monday - Sunday</p>
+            <p style={{fontSize:14,color:'var(--gray)',marginBottom:20}}>11:00 AM - 11:30 PM</p>
             <div className="footer-sig">Baked<br/>with Love <Heart size={20} fill="currentColor" style={{display:'inline', verticalAlign:'middle'}} /></div>
           </div>
         </div>
@@ -450,94 +390,39 @@ function Footer() {
 /* ─── FREE DELIVERY BADGE ─── */
 function DeliveryBadge() {
   return (
-    <a href="https://wa.me/917738443411" target="_blank" rel="noreferrer" style={{textDecoration: 'none'}}>
-      <div className="delivery-badge">
-        <Truck size={18} /> Free Delivery Above ₹500!
-      </div>
-    </a>
+    <div className="delivery-badge">
+      <Truck size={18} /> Free Delivery Above ₹500!
+    </div>
   );
 }
 
 /* ─── APP ─── */
 function App() {
-  const [loaded, setLoaded] = useState(false);
-
   useEffect(() => {
-    if (!loaded) return;
-
-    // Safe scroll reveals using fromTo (guarantees end state = visible)
-    const sections = document.querySelectorAll('.about, .features-strip, .combo, .gallery, .testimonials');
-    sections.forEach(sec => {
-      gsap.fromTo(sec,
-        { opacity: 0, y: 40 },
-        { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out',
-          scrollTrigger: { trigger: sec, start: 'top 85%', toggleActions: 'play none none none' }
-        }
-      );
-    });
-
-    // Offer cards stagger
-    gsap.fromTo('.offer-card-wide',
-      { opacity: 0, y: 30 },
-      { opacity: 1, y: 0, duration: 0.6, stagger: 0.15, ease: 'power3.out',
-        scrollTrigger: { trigger: '.offers', start: 'top 85%', toggleActions: 'play none none none' }
-      }
-    );
-
-    // Review cards stagger
-    gsap.fromTo('.review-card',
-      { opacity: 0, x: 30 },
-      { opacity: 1, x: 0, duration: 0.5, stagger: 0.1, ease: 'power2.out',
-        scrollTrigger: { trigger: '.testimonials', start: 'top 85%', toggleActions: 'play none none none' }
-      }
-    );
-
-    // Feature items stagger
-    gsap.fromTo('.feature-item',
-      { opacity: 0, y: 20 },
-      { opacity: 1, y: 0, duration: 0.4, stagger: 0.1, ease: 'power2.out',
-        scrollTrigger: { trigger: '.features-strip', start: 'top 85%', toggleActions: 'play none none none' }
-      }
-    );
-
-    // Footer reveal
-    gsap.fromTo('.footer-col',
-      { opacity: 0, y: 20 },
-      { opacity: 1, y: 0, duration: 0.5, stagger: 0.1, ease: 'power2.out',
-        scrollTrigger: { trigger: '.footer', start: 'top 90%', toggleActions: 'play none none none' }
-      }
-    );
-
-    // Fallback: ensure hero + offers visible after 3s no matter what
-    setTimeout(() => {
-      document.querySelectorAll('.hero, .offers, .bestsellers, .offer-card-wide, .product-card').forEach(el => {
-        el.style.opacity = '1';
-        el.style.transform = 'none';
-      });
-    }, 3000);
-
-  }, [loaded]);
+    const els = document.querySelectorAll('.fade-up');
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.1 });
+    els.forEach(el => obs.observe(el));
+    return () => obs.disconnect();
+  }, []);
 
   return (
     <>
-      <PageLoader onComplete={() => setLoaded(true)} />
-      <CustomCursor />
-      <div className={`page-content ${loaded ? 'page-visible' : ''}`}>
-        <TopBar />
-        <Navbar />
-        <DeliveryBadge />
-        <main>
-          <Hero />
-          <About />
-          <Offers />
-          <Bestsellers />
-          <Features />
-          <SpecialCombo />
-          <Gallery />
-          <Testimonials />
-        </main>
-        <Footer />
-      </div>
+      <TopBar />
+      <Navbar />
+      <DeliveryBadge />
+      <main>
+        <Hero />
+        <About />
+        <Offers />
+        <Bestsellers />
+        <Features />
+        <SpecialCombo />
+        <InstagramGallery />
+        <Testimonials />
+      </main>
+      <Footer />
     </>
   );
 }

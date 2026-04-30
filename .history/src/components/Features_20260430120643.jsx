@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Sparkles, ShieldCheck, Truck, Heart } from 'lucide-react';
+import { Sparkles, Leaf, ShieldCheck, Truck, Heart } from 'lucide-react';
 import './Features.css';
 
 const Features = () => {

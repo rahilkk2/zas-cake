@@ -36,8 +36,12 @@ const Footer = () => {
                 <span>7738443411</span>
               </li>
               <li>
+                <Mail size={18} className="contact-icon" />
+                <span>zascake8@gmail.com</span>
+              </li>
+              <li>
                 <MapPin size={18} className="contact-icon" />
-                <span>Shimla Park, Kausa, Mumbra, Thane, Maharashtra 400612</span>
+                <span>Shop No. 1, (Your Area), Mumbai - 400XXX</span>
               </li>
             </ul>
             <a href="https://wa.me/917738443411" target="_blank" rel="noreferrer" className="btn btn-primary btn-sm mt-4 whatsapp-btn">
@@ -47,8 +51,8 @@ const Footer = () => {
           
           <div className="footer-hours">
             <h4 className="footer-title">OPENING HOURS</h4>
-            <p>Mon-Sun</p>
-            <p>10:30 AM - 1:30 AM</p>
+            <p>Monday - Sunday</p>
+            <p>11:00 AM - 11:30 PM</p>
             
             <h3 className="footer-signature text-pink-italic mt-4">Baked <br/>with Love ❤</h3>
           </div>

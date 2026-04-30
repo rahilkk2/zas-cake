@@ -1,17 +1,10 @@
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import { 
   Phone, Clock, MapPin, 
   ShoppingBag, Menu, X, Heart, Calendar, Gift, 
-  Sparkles, Shield, Truck, MessageCircle, Star, Leaf
+  Sparkles, Shield, Truck, MessageCircle, Star
 } from 'lucide-react';
 import { FaWhatsapp } from 'react-icons/fa';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import Gallery from './components/Gallery';
-import CustomCursor from './components/CustomCursor';
-import PageLoader from './components/PageLoader';
-
-gsap.registerPlugin(ScrollTrigger);
 
 /* ─── TOP BAR ─── */
 function TopBar() {
@@ -80,64 +73,14 @@ function Navbar() {
 
 /* ─── HERO ─── */
 function Hero() {
-  const heroRef = useRef(null);
-  const glowRef = useRef(null);
-  const cakeRef = useRef(null);
-
-  useEffect(() => {
-    const hero = heroRef.current;
-    if (!hero) return;
-
-    // Mouse-follow glow
-    const onMove = (e) => {
-      if (!glowRef.current) return;
-      const rect = hero.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      glowRef.current.style.background = `radial-gradient(600px circle at ${x}px ${y}px, rgba(216,27,96,0.07), transparent 60%)`;
-    };
-    hero.addEventListener('mousemove', onMove);
-
-    // Parallax cake on scroll
-    gsap.to('.hero-cake-frame', {
-      y: -40,
-      ease: 'none',
-      scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: 1.5 }
-    });
-
-    // Text reveal — gentle fade-in, elements start visible as fallback
-    const tl = gsap.timeline({ delay: 1.8 });
-    tl.fromTo('.hero-tagline', { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' })
-      .fromTo('.hero-heading', { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '-=0.3')
-      .fromTo('.hero-divider', { opacity: 0, scaleX: 0 }, { opacity: 1, scaleX: 1, duration: 0.5, ease: 'power2.out' }, '-=0.2')
-      .fromTo('.hero-desc', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }, '-=0.2')
-      .fromTo('.hero-btns', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }, '-=0.2')
-      .fromTo('.hero-cake-frame', { opacity: 0, scale: 0.85 }, { opacity: 1, scale: 1, duration: 1, ease: 'power3.out' }, '-=0.8')
-      .fromTo('.hero-logo-badge', { opacity: 0, scale: 0 }, { opacity: 1, scale: 1, duration: 0.5, ease: 'back.out(1.7)' }, '-=0.4');
-
-    return () => hero.removeEventListener('mousemove', onMove);
-  }, []);
-
-  // More petals for luxury feel (slow floating)
-  const petals = Array.from({ length: 12 }, (_, i) => ({
-    top: `${Math.random() * 90}%`,
-    left: `${Math.random() * 100}%`,
-    bg: ['#fce4ec', '#f8bbd0', '#f48fb1', '#fce4ec'][i % 4],
-    size: 8 + Math.random() * 12,
-    delay: Math.random() * 6,
-    dur: 10 + Math.random() * 8,
-  }));
-
   return (
-    <section className="hero" id="home" ref={heroRef}>
-      <div ref={glowRef} className="hero-mouse-glow" />
-      {petals.map((p, i) => (
+    <section className="hero" id="home">
+      {[...Array(5)].map((_, i) => (
         <div key={i} className="petal" style={{
-          top: p.top, left: p.left,
-          background: p.bg,
-          width: `${p.size}px`, height: `${p.size}px`,
-          animationDelay: `${p.delay}s`, animationDuration: `${p.dur}s`,
-          opacity: 0.35,
+          top: `${15 + i * 14}%`, left: `${5 + i * 18}%`,
+          background: i % 2 === 0 ? '#fce4ec' : '#f8bbd0',
+          width: `${14 + i * 3}px`, height: `${14 + i * 3}px`,
+          animationDelay: `${i * 0.8}s`, animationDuration: `${5 + i * 1.5}s`,
         }} />
       ))}
       <div className="container hero-inner">
@@ -153,7 +96,7 @@ function Hero() {
         </div>
         <div className="hero-img-wrap">
           <div className="hero-glow"></div>
-          <div className="hero-cake-frame" ref={cakeRef}>
+          <div className="hero-cake-frame">
             <img src="/products/cake 12.jpeg" alt="Premium Cake" className="hero-cake" />
           </div>
           <div className="hero-logo-badge">
@@ -256,33 +199,6 @@ function Offers() {
 }
 
 /* ─── BESTSELLERS ─── */
-function ProductCard({ p }) {
-  const cardRef = useRef(null);
-  const handleMove = (e) => {
-    const card = cardRef.current;
-    if (!card) return;
-    const rect = card.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
-    const rotateX = (y - centerY) / centerY * -8;
-    const rotateY = (x - centerX) / centerX * 8;
-    card.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-8px)`;
-  };
-  const handleLeave = () => {
-    if (cardRef.current) cardRef.current.style.transform = '';
-  };
-  return (
-    <div className="product-card" ref={cardRef} onMouseMove={handleMove} onMouseLeave={handleLeave}>
-      <div className="product-img-wrap"><img src={p.img} alt={p.name} loading="lazy" /></div>
-      <div className="product-name">{p.name}</div>
-      {p.price && <div className="product-price">₹{p.price}</div>}
-      <a href="https://wa.me/917738443411" className="btn btn-primary btn-sm">Order Now</a>
-    </div>
-  );
-}
-
 function Bestsellers() {
   const products = [
     { name: 'Made With Love Cake', price: null, img: '/products/cake 3.jpeg' },
@@ -292,23 +208,20 @@ function Bestsellers() {
     { name: 'Crafted to Perfection', price: null, img: '/products/cake 7.jpeg' },
     { name: 'A Treat to Remember', price: null, img: '/products/cake 8.jpeg' },
   ];
-
-  useEffect(() => {
-    gsap.fromTo('.product-card',
-      { opacity: 0, y: 60 },
-      { opacity: 1, y: 0, duration: 0.6, stagger: 0.12, ease: 'power3.out',
-        scrollTrigger: { trigger: '.bestsellers', start: 'top 85%', toggleActions: 'play none none none' }
-      }
-    );
-  }, []);
-
   return (
     <section className="bestsellers" id="cakes">
       <div className="container">
         <h2 className="section-title">Our Bestsellers</h2>
         <div className="slider-wrapper">
           <div className="products-track">
-            {products.map((p, i) => <ProductCard key={i} p={p} />)}
+            {products.map((p, i) => (
+              <div className="product-card" key={i}>
+                <div className="product-img-wrap"><img src={p.img} alt={p.name} loading="lazy" /></div>
+                <div className="product-name">{p.name}</div>
+                {p.price && <div className="product-price">₹{p.price}</div>}
+                <a href="https://wa.me/917738443411" className="btn btn-primary btn-sm">Order Now</a>
+              </div>
+            ))}
           </div>
         </div>
       </div>
@@ -390,26 +303,8 @@ function Testimonials() {
 
 /* ─── FOOTER ─── */
 function Footer() {
-  // Floating light particles
-  const particles = Array.from({ length: 15 }, (_, i) => ({
-    left: `${Math.random() * 100}%`,
-    size: 3 + Math.random() * 5,
-    delay: Math.random() * 8,
-    dur: 6 + Math.random() * 6,
-    opacity: 0.15 + Math.random() * 0.2,
-  }));
-
   return (
     <footer className="footer" id="contact">
-      <div className="footer-particles">
-        {particles.map((p, i) => (
-          <span key={i} className="footer-particle" style={{
-            left: p.left, width: p.size, height: p.size,
-            animationDelay: `${p.delay}s`, animationDuration: `${p.dur}s`,
-            opacity: p.opacity,
-          }} />
-        ))}
-      </div>
       <div className="container">
         <div className="footer-grid">
           <div className="footer-col">
@@ -460,84 +355,30 @@ function DeliveryBadge() {
 
 /* ─── APP ─── */
 function App() {
-  const [loaded, setLoaded] = useState(false);
-
   useEffect(() => {
-    if (!loaded) return;
-
-    // Safe scroll reveals using fromTo (guarantees end state = visible)
-    const sections = document.querySelectorAll('.about, .features-strip, .combo, .gallery, .testimonials');
-    sections.forEach(sec => {
-      gsap.fromTo(sec,
-        { opacity: 0, y: 40 },
-        { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out',
-          scrollTrigger: { trigger: sec, start: 'top 85%', toggleActions: 'play none none none' }
-        }
-      );
-    });
-
-    // Offer cards stagger
-    gsap.fromTo('.offer-card-wide',
-      { opacity: 0, y: 30 },
-      { opacity: 1, y: 0, duration: 0.6, stagger: 0.15, ease: 'power3.out',
-        scrollTrigger: { trigger: '.offers', start: 'top 85%', toggleActions: 'play none none none' }
-      }
-    );
-
-    // Review cards stagger
-    gsap.fromTo('.review-card',
-      { opacity: 0, x: 30 },
-      { opacity: 1, x: 0, duration: 0.5, stagger: 0.1, ease: 'power2.out',
-        scrollTrigger: { trigger: '.testimonials', start: 'top 85%', toggleActions: 'play none none none' }
-      }
-    );
-
-    // Feature items stagger
-    gsap.fromTo('.feature-item',
-      { opacity: 0, y: 20 },
-      { opacity: 1, y: 0, duration: 0.4, stagger: 0.1, ease: 'power2.out',
-        scrollTrigger: { trigger: '.features-strip', start: 'top 85%', toggleActions: 'play none none none' }
-      }
-    );
-
-    // Footer reveal
-    gsap.fromTo('.footer-col',
-      { opacity: 0, y: 20 },
-      { opacity: 1, y: 0, duration: 0.5, stagger: 0.1, ease: 'power2.out',
-        scrollTrigger: { trigger: '.footer', start: 'top 90%', toggleActions: 'play none none none' }
-      }
-    );
-
-    // Fallback: ensure hero + offers visible after 3s no matter what
-    setTimeout(() => {
-      document.querySelectorAll('.hero, .offers, .bestsellers, .offer-card-wide, .product-card').forEach(el => {
-        el.style.opacity = '1';
-        el.style.transform = 'none';
-      });
-    }, 3000);
-
-  }, [loaded]);
+    const els = document.querySelectorAll('.fade-up');
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.1 });
+    els.forEach(el => obs.observe(el));
+    return () => obs.disconnect();
+  }, []);
 
   return (
     <>
-      <PageLoader onComplete={() => setLoaded(true)} />
-      <CustomCursor />
-      <div className={`page-content ${loaded ? 'page-visible' : ''}`}>
-        <TopBar />
-        <Navbar />
-        <DeliveryBadge />
-        <main>
-          <Hero />
-          <About />
-          <Offers />
-          <Bestsellers />
-          <Features />
-          <SpecialCombo />
-          <Gallery />
-          <Testimonials />
-        </main>
-        <Footer />
-      </div>
+      <TopBar />
+      <Navbar />
+      <DeliveryBadge />
+      <main>
+        <Hero />
+        <About />
+        <Offers />
+        <Bestsellers />
+        <Features />
+        <SpecialCombo />
+        <Testimonials />
+      </main>
+      <Footer />
     </>
   );
 }

@@ -1,26 +1,24 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X } from 'lucide-react';
-import { FaInstagram as Instagram } from 'react-icons/fa';
-import './InstagramGallery.css';
+import { X, Search } from 'lucide-react';
+import './Gallery.css';
 
-const InstagramGallery = () => {
+const Gallery = () => {
   const [selectedImage, setSelectedImage] = useState(null);
 
   const images = [
-    '/instagram/img shop1.jpeg',
-    '/instagram/img shop2.jpeg',
-    '/instagram/img shop 3.jpeg',
-    '/instagram/img shop 4.jpeg'
+    '/shop/img shop1.jpeg',
+    '/shop/img shop2.jpeg',
+    '/shop/img shop 3.jpeg',
+    '/shop/img shop 4.jpeg'
   ];
 
   return (
-    <section className="instagram-gallery section-padding" id="gallery">
+    <section className="gallery section-padding" id="gallery">
       <div className="container">
-        <h2 className="section-title">
-          <Instagram size={36} className="mr-3 text-pink-italic" /> 
-          Follow Us On Instagram
-        </h2>
+        <div className="section-title-wrap">
+          <h2 className="section-title">Gallery</h2>
+        </div>
         
         <div className="gallery-grid">
           {images.map((img, index) => (
@@ -33,20 +31,12 @@ const InstagramGallery = () => {
               viewport={{ once: true }}
               onClick={() => setSelectedImage(img)}
             >
-              <img src={img} alt={`Instagram ${index + 1}`} className="gallery-image" />
+              <img src={img} alt={`Gallery Image ${index + 1}`} className="gallery-image" />
               <div className="gallery-overlay">
-                <Instagram size={32} className="overlay-icon" />
+                <Search size={32} className="overlay-icon" />
               </div>
             </motion.div>
           ))}
-          
-          <div className="gallery-cta">
-            <div className="cta-content glass-panel">
-              <Instagram size={40} className="mb-3 text-pink-italic" />
-              <h4 className="mb-2">@zascake8</h4>
-              <button className="btn btn-primary btn-sm mt-3 w-full">Follow Us</button>
-            </div>
-          </div>
         </div>
       </div>
 
@@ -79,4 +69,4 @@ const InstagramGallery = () => {
   );
 };
 
-export default InstagramGallery;
+export default Gallery;
